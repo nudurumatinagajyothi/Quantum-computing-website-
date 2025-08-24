@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   <nav class="navbar navbar-expand-lg navbar-custom sticky-top bg-light shadow-sm">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="index.html">Quantum Portal</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+              aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -22,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <li class="nav-item"><a class="nav-link" href="companies.html">QC Companies</a></li>
           <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
           <li class="nav-item"><a class="nav-link" href="labs.html">Labs</a></li>
-        
-
         </ul>
       </div>
     </div>
@@ -38,8 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
   navLinks.forEach(link => {
     link.classList.remove('active');
-    if (link.getAttribute('href') === currentPage || (currentPage === '' && link.getAttribute('href') === 'index.html')) {
+    if (
+      link.getAttribute('href') === currentPage ||
+      (currentPage === '' && link.getAttribute('href') === 'index.html')
+    ) {
       link.classList.add('active');
     }
+  });
+
+  // ✅ Auto-close navbar on mobile after clicking a link
+  const navbarCollapse = document.getElementById('navbarNav');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (navbarCollapse.classList.contains('show')) {
+        new bootstrap.Collapse(navbarCollapse).toggle();
+      }
+    });
   });
 });
